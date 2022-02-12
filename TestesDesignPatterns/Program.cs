@@ -44,24 +44,29 @@ public class MainAplication{
 
         }
 
-
-        Console.WriteLine("Escreva uma das opções:\n1- Strategy\n2- Chain of Resposibility\n3- ");
-        var opcao = Console.ReadLine();
-
-        switch (opcao)
+        var opcao = "";
+        do
         {
-            case "1":
-                StrategyMain();
-                break;
-            case "2":
-                ChainMain();
-                break;
-            case "3":
-                break;
+            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method");
+            opcao = Console.ReadLine();
+            Console.WriteLine("\n\n\n\n\n");
 
-            default:
-                break;
-        }
+            switch (opcao)
+            {
+                case "1":
+                    StrategyMain();
+                    break;
+                case "2":
+                    ChainMain();
+                    break;
+                case "3":
+                    break;
+
+                default:
+                    break;
+            }
+        } while (String.IsNullOrEmpty(opcao));
+        
 
     }
 
