@@ -1,5 +1,6 @@
 ﻿using TestesDesignPatterns.ChainOfResposibility;
 using TestesDesignPatterns.Strategy;
+using TestesDesignPatterns.TemplateMethod;
 
 public class MainAplication{
 
@@ -44,12 +45,32 @@ public class MainAplication{
 
         }
 
+        void TemplateMain() {
+
+            var conta1 = new ContaMethod("Ricardo","Numero: 123","Agencia: 2313132","R$50000,00");
+            var conta2 = new ContaMethod("Bruno", "Numero: 21313", "Agencia: 234332423", "R$71190849028,00");
+            var conta3 = new ContaMethod("Mayumi", "Numero: 1423442423", "Agencia: 2789782", "R$1287891298127979287190000,00");
+
+            List<ContaMethod> contas = new List<ContaMethod>();
+
+            contas.Add(conta1);
+            contas.Add(conta2);
+            contas.Add(conta3);
+
+
+            var relatorio = new RelatorioSimples();
+
+            relatorio.ImprimeRelatorio(contas);
+        }
+
         var opcao = "";
         do
         {
-            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method");
+            Console.Clear();
+            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n");
             opcao = Console.ReadLine();
-            Console.WriteLine("\n\n\n\n\n");
+            Console.Beep();
+            Console.WriteLine("\n\n");
 
             switch (opcao)
             {
@@ -60,12 +81,14 @@ public class MainAplication{
                     ChainMain();
                     break;
                 case "3":
+                    TemplateMain();
                     break;
 
                 default:
                     break;
             }
-        } while (String.IsNullOrEmpty(opcao));
+            Console.ReadKey();
+        } while (opcao != "0");
         
 
     }
