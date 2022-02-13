@@ -1,10 +1,12 @@
 ﻿using TestesDesignPatterns.ChainOfResposibility;
 using TestesDesignPatterns.Decorator;
 using TestesDesignPatterns.FlyWeight;
+using TestesDesignPatterns.Interpreter;
 using TestesDesignPatterns.Memento;
 using TestesDesignPatterns.State;
 using TestesDesignPatterns.Strategy;
 using TestesDesignPatterns.TemplateMethod;
+using TestesDesignPatterns.Visitor;
 
 public class MainAplication{
 
@@ -178,11 +180,30 @@ public class MainAplication{
 
         }
 
+        void InterpreterMain() {
+
+            // (10 - 5) + (2 + 10)
+
+            IExpressao esquerda = new Subtracao(new Numero(10), new Numero(5));
+            IExpressao direita = new Soma(new Numero(2), new Numero(10));
+            IExpressao contaFinal = new Multiplicacao(new Soma(esquerda, direita), new Numero(10));
+
+            int resultado = contaFinal.Avalia();
+            Console.WriteLine(resultado);
+
+            ///USA O DESIGN PATTERN VISITOR
+
+            var impressora = new ImpressoraVisitor();
+
+            contaFinal.Aceita(impressora);
+
+        }
+
         var opcao = "";
         do
         {
             Console.Clear();
-            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n4- Decorator\n5- State\n6- LightWeight\n7- Memento\n");
+            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n4- Decorator\n5- State\n6- LightWeight\n7- Memento\n8- Interpreter");
             opcao = Console.ReadLine();
             Console.Beep();
             Console.WriteLine("\n\n");
@@ -209,6 +230,9 @@ public class MainAplication{
                     break;
                 case "7":
                     MementoMain();
+                    break;
+                case "8":
+                    InterpreterMain();
                     break;
                 default:
                     break;
