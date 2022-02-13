@@ -1,4 +1,6 @@
 ﻿using TestesDesignPatterns.ChainOfResposibility;
+using TestesDesignPatterns.Decorator;
+using TestesDesignPatterns.State;
 using TestesDesignPatterns.Strategy;
 using TestesDesignPatterns.TemplateMethod;
 
@@ -63,11 +65,59 @@ public class MainAplication{
             relatorio.ImprimeRelatorio(contas);
         }
 
+        void DecoratorMain() {
+
+            var conta1 = new ContaDecorator();
+            var conta2 = new ContaDecorator();
+            var conta3 = new ContaDecorator();
+            var conta4 = new ContaDecorator();
+            var conta5 = new ContaDecorator();
+
+            conta1.Deposita(99);
+            conta2.Deposita(200);
+            conta3.Deposita(1000000);
+            conta4.Deposita(2);
+            conta5.Deposita(4000000);
+
+            var contas = new List<ContaDecorator>();
+
+            contas.Add(conta1);
+            contas.Add(conta2);
+            contas.Add(conta3);
+            contas.Add(conta4);
+            contas.Add(conta5);
+
+            var filtros = new FiltroMenorQue100Reais(new FiltroSaldoMaiorQue500Mil());
+
+            Console.WriteLine("Contas: \n");
+
+            foreach (var item in filtros.Filtra(contas))
+            {
+                Console.WriteLine("Saldos aceitos nos filtros: " + item.Valor);
+            }
+
+        }
+
+        void StateMain(){
+            //particularmente nao gosto de design pq ele fere o I do SOLID
+
+            var conta = new ContaState();
+
+            conta.Saca(20);
+
+            conta.Deposita(40);
+
+            conta.Saca(20);
+
+            conta.Saca(20);
+
+        }
+
         var opcao = "";
         do
         {
             Console.Clear();
-            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n");
+            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n4- Decorator\n5- State\n");
             opcao = Console.ReadLine();
             Console.Beep();
             Console.WriteLine("\n\n");
@@ -83,7 +133,12 @@ public class MainAplication{
                 case "3":
                     TemplateMain();
                     break;
-
+                case "4":
+                    DecoratorMain();
+                    break;
+                case "5":
+                    StateMain();
+                    break;
                 default:
                     break;
             }
