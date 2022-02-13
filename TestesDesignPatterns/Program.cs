@@ -1,5 +1,7 @@
 ﻿using TestesDesignPatterns.ChainOfResposibility;
 using TestesDesignPatterns.Decorator;
+using TestesDesignPatterns.FlyWeight;
+using TestesDesignPatterns.Memento;
 using TestesDesignPatterns.State;
 using TestesDesignPatterns.Strategy;
 using TestesDesignPatterns.TemplateMethod;
@@ -113,11 +115,74 @@ public class MainAplication{
 
         }
 
+        void LightWeight() {
+
+            NotasMusicais notas = new NotasMusicais();
+
+            IList<INota> doReMiFa = new List<INota>() {
+            notas.Pega("do"),
+            notas.Pega("re"),
+            notas.Pega("mi"),
+            notas.Pega("fa"),
+            notas.Pega("fa"),
+            notas.Pega("fa"),
+
+            notas.Pega("do"),
+            notas.Pega("re"),
+            notas.Pega("do"),
+            notas.Pega("re"),
+            notas.Pega("re"),
+            notas.Pega("re"),
+
+            notas.Pega("do"),
+            notas.Pega("sol"),
+            notas.Pega("fa"),
+            notas.Pega("mi"),
+            notas.Pega("mi"),
+            notas.Pega("mi"),
+
+            notas.Pega("do"),
+            notas.Pega("re"),
+            notas.Pega("mi"),
+            notas.Pega("fa"),
+            notas.Pega("fa"),
+            notas.Pega("fa")
+        };
+
+            Piano piano = new Piano();
+            piano.Toca(doReMiFa);
+
+        }
+
+        void MementoMain() {
+
+            Historico historico = new Historico();
+
+            Contrato contrato = new Contrato(DateTime.Now, "Mauricio", TipoContrato.Novo);
+            historico.Adiciona(contrato.SalvaEstado());
+
+            contrato.Avanca();
+            historico.Adiciona(contrato.SalvaEstado());
+
+            contrato.Avanca();
+            historico.Adiciona(contrato.SalvaEstado());
+
+            contrato.Avanca();
+            historico.Adiciona(contrato.SalvaEstado());
+
+            Console.WriteLine(historico.Pega(0).Contrato.Tipo);
+            Console.WriteLine(historico.Pega(1).Contrato.Tipo);
+            Console.WriteLine(historico.Pega(2).Contrato.Tipo);
+            Console.WriteLine(historico.Pega(3).Contrato.Tipo);
+
+
+        }
+
         var opcao = "";
         do
         {
             Console.Clear();
-            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n4- Decorator\n5- State\n");
+            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n4- Decorator\n5- State\n6- LightWeight\n7- Memento\n");
             opcao = Console.ReadLine();
             Console.Beep();
             Console.WriteLine("\n\n");
@@ -138,6 +203,12 @@ public class MainAplication{
                     break;
                 case "5":
                     StateMain();
+                    break;
+                case "6":
+                    LightWeight();
+                    break;
+                case "7":
+                    MementoMain();
                     break;
                 default:
                     break;
