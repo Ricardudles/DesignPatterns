@@ -1,4 +1,6 @@
-﻿using TestesDesignPatterns.ChainOfResposibility;
+﻿using TestesDesignPatterns.Bridge;
+using TestesDesignPatterns.ChainOfResposibility;
+using TestesDesignPatterns.Command;
 using TestesDesignPatterns.Decorator;
 using TestesDesignPatterns.FlyWeight;
 using TestesDesignPatterns.Interpreter;
@@ -199,11 +201,34 @@ public class MainAplication{
 
         }
 
+        void BridgeMain() {
+
+            IEnviador enviador = new EnviaPorEmail();
+            IMensagem mensagem = new MensagemAdmin("Ricardo");
+
+            enviador.Envia(mensagem);
+        
+        }
+
+        void CommandMain() {
+
+            Pedido pedido1 = new Pedido("Mauricio", 150.0);
+            Pedido pedido2 = new Pedido("Marcelo", 250.0);
+
+            FilaDeTrabalho fila = new FilaDeTrabalho();
+
+            fila.Adiciona(new PagaPedido(pedido1));
+            fila.Adiciona(new PagaPedido(pedido2));
+            fila.Adiciona(new FinalizaPedido(pedido1));
+
+            fila.Processa();
+        }
+
         var opcao = "";
         do
         {
             Console.Clear();
-            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n4- Decorator\n5- State\n6- LightWeight\n7- Memento\n8- Interpreter");
+            Console.WriteLine("\n\nEscreva uma das opções:\n0- Sair\n1- Strategy\n2- Chain of Resposibility\n3- Template Method\n4- Decorator\n5- State\n6- LightWeight\n7- Memento\n8- Interpreter\n9- Bridge\n10- Command");
             opcao = Console.ReadLine();
             Console.Beep();
             Console.WriteLine("\n\n");
@@ -233,6 +258,12 @@ public class MainAplication{
                     break;
                 case "8":
                     InterpreterMain();
+                    break;
+                case "9":
+                    BridgeMain();
+                    break;
+                case "10":
+                    CommandMain();
                     break;
                 default:
                     break;
